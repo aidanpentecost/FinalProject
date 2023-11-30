@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class ComicAdapter extends RecyclerView.Adapter {
+public class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
 
     private int itemId;
     private int itemCount;
@@ -33,7 +33,7 @@ public class ComicAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return comicList.size();
     }
 
 

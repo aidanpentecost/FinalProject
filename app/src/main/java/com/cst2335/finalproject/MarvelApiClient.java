@@ -10,7 +10,7 @@ public class MarvelApiClient {
         return marvelApiService;
     }
 
-    private static final String BASE_URL = "https://gateway.marvel.com/";
+    private static final String BASE_URL = "https://developer.marvel.com/";
     public static final String API_KEY = "2128c69ab35fbae8654e56eb850f2ad1";
     private static final String PRIVATE_KEY = "ffaeba31bf5c7339d8768fce859f045ef1bed980";
 

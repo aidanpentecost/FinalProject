@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements ComicAdapter.OnIt
         long timestamp = System.currentTimeMillis();
         String hash = MarvelApiClient.generateHash(timestamp);
 
-        Call<ComicDataWrapper> call = MarvelApiClient.getMarveApiService()
+        Call<ComicDataWrapper> call = MarvelApiClient.getMarvelApiService()
                 .getComics(MarvelApiClient.API_KEY, timestamp, hash);
 
         call.enqueue(new Callback<ComicDataWrapper>() {

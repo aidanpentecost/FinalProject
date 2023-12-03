@@ -7,11 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
-public class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
+public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
 
     private int itemId;
     private int itemCount;
@@ -63,4 +69,26 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
 
         void onItemClick(int position);
     }
+
+    public class ComicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public TextView titleTextView;
+        public ImageView imageView;
+
+        public ComicViewHolder(View itemView) {
+            super(itemView);
+            titleTextView = itemView.findViewById(R.id.titleTextView);
+            imageView = itemView.findViewById(R.id.imageView);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            //send to MainActivity listener
+            if (listener != null){
+                listener.onItemClick(getAdapterPosition());
+            }
+        }
+    }
+
 }

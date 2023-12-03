@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements ComicAdapter.OnIt
 
         comicAdapter = new ComicAdapter(comicList, this);
         recyclerView.setAdapter(comicAdapter);
+
+        fetchComics();
     }
 
     @Override
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements ComicAdapter.OnIt
             public void onResponse(Call<ComicDataWrapper> call, Response<ComicDataWrapper> response) {
                 if(response.isSuccessful()){
                     List<Comic> comics = response.body().data.results;
+                    comicList.addAll(comics);
+                    comicAdapter.notifyDataSetChanged();
                 }else{
                     //handle error
                 }

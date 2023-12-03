@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements ComicAdapter.OnIt
 
         call.enqueue(new Callback<ComicDataWrapper>() {
             @Override
-            public void onResponse(Call<ComicDataWrapper> call, Response<ComicDataWrapper> response) {
+            public void onResponse(
+                    Call<ComicDataWrapper> call,
+                    Response<ComicDataWrapper> response) {
                 if(response.isSuccessful()){
                     List<Comic> comics = response.body().data.results;
                     comicList.addAll(comics);

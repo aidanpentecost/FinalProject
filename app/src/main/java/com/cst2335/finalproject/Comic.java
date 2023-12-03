@@ -3,6 +3,7 @@ package com.cst2335.finalproject;
 public class Comic {
     private String title;
     private String imageUrl;
+    private String thumbnail;
 
     public Comic(String title, String imageUrl){
         this.title = title;
@@ -13,4 +14,6 @@ public class Comic {
     }
 
     public String getImageUrl() {return imageUrl;}
+
+    public String getThumbnail(){return thumbnail;}
 }

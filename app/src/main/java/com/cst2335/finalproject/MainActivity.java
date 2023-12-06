@@ -15,7 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
+// TODO: add code so actiivty main can function
  @Override
     protected void onCreate(Bundle savedInstanceState){
 

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class fragment_list extends Fragment {
+public class FragmentList extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_PARAM1 = "param1";
@@ -19,14 +19,14 @@ public class fragment_list extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_list() {
+    public FragmentList() {
         // Required empty public constructor
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static fragment_list newInstance(String param1, String param2) {
-        fragment_list fragment = new fragment_list();
+    public static FragmentList newInstance(String param1, String param2) {
+        FragmentList fragment = new FragmentList();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

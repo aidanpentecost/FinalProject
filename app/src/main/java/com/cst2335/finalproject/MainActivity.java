@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,5 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
      super.onCreate(savedInstanceState);
      setContentView(R.layout.activity_main);
+     FragmentHeader fragmentHeader = new FragmentHeader();
+     FragmentList fragmentList = new FragmentList();
+     @SuppressLint({"MissingInflatedId", "LocalSuppress"}) ListView comicListView = findViewById(R.id.comicList);
+
  }
 }

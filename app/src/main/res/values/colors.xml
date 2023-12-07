@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="Red">#8B0000</color>
+    <color name="Red">#cc0000</color>
+    <color name="Blue">#4169e1</color>
     <color name="Black1">#1a191c</color>
     <color name="GreyBlue">#364652</color>
     <color name="Black2">#071108</color>
-
-
     <color name="Grey">	#393d3f</color>
-    <color name="White">#FFFFFF</color>
-
-
+    <color name="DarkGray">#a9a9a9</color>
+    <color name="White">#ffffff</color>
 </resources>

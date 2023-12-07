@@ -13,7 +13,7 @@
         <item
             android:id="@+id/drawerHelp"
             android:title="Help"
-            android:icon="@drawable/baseline_home_24"/>
+            android:icon="@drawable/baseline_help_24"/>
         <item
             android:id="@+id/drawerSettings"
             android:title="Settings"
@@ -22,11 +22,16 @@
     </group>
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/drawerLanguage"
+            android:title="Language"
+            android:icon="@drawable/baseline_language_24"
             />
         <item
+            android:id="@+id/drawerAbout"
+            android:title="About"
+            android:icon="@drawable/baseline_question_mark_24"
             />
-        <item
-            />
+
 
     </group>
 

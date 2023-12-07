@@ -4,5 +4,10 @@
     <color name="Black1">#1a191c</color>
     <color name="GreyBlue">#364652</color>
     <color name="Black2">#071108</color>
+
+
     <color name="Grey">	#393d3f</color>
+    <color name="White">#FFFFFF</color>
+
+
 </resources>

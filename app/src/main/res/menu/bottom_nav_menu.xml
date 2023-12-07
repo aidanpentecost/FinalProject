@@ -3,17 +3,17 @@
 <!--TODO: CHANGE ITEM ICONS TO SOMETHING THAT MAKES SENSE-->
     <item
         android:id="@+id/Comic"
-        android:icon="@drawable/baseline_settings_24"
+        android:icon="@drawable/baseline_self_improvement_24"
         android:title="Comic" />
 
     <item
         android:id="@+id/Favourites"
         android:title="notifications"
-        android:icon="@drawable/baseline_notifications_24" />
+        android:icon="@drawable/baseline_favorite_24" />
 
     <item
         android:id="@+id/Manga"
-        android:icon="@drawable/baseline_settings_24"
+        android:icon="@drawable/baseline_skateboarding_24"
         android:title="Manga" />
 
 </menu>

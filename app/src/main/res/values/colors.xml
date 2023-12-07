@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="Red">#8B0000</color>
-    <color name="Black1">#1a191c</color>
+    <color name="Yellow">#FFDE03</color>
+    <color name="BlUE">#41A6DE</color>
+    <color name="PINK">#C841DE</color>
     <color name="GreyBlue">#364652</color>
-    <color name="Black2">#071108</color>
+    <color name="Black2">#0A1C20</color>
 
 
     <color name="Grey">	#393d3f</color>

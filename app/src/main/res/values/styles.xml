@@ -2,13 +2,13 @@
 <resources>
 
     <style name ="AppTheme" parent ="Theme.AppCompat.Light.NoActionBar">
-    <item name = "colorPrimary">@color/Red</item>
+    <item name = "colorPrimary">@color/Yellow</item>
         <item name = "colorPrimaryDark">@color/Black2</item>
-        <item name = "colorAccent">@color/Black1</item>
+        <item name = "colorAccent">@color/BlUE</item>
     </style>
 
     <style name ="AppThemeLight" parent ="Theme.AppCompat.Light.NoActionBar">
-        <item name = "colorPrimary">@color/Red</item>
+        <item name = "colorPrimary">@color/Yellow</item>
         <item name = "colorPrimaryDark">@color/White</item>
         <item name = "colorAccent">@color/White</item>
     </style>

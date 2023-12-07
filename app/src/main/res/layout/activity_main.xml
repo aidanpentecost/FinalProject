@@ -6,8 +6,8 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Black1"
-    tools:openDrawer="start">
+    android:background="@color/BlUE"
+    >
 
 
 
@@ -21,7 +21,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/Red"
+            android:background="@color/PINK"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:menu="@menu/nav_menu">
@@ -31,8 +31,9 @@
                 android:layout_height="wrap_content"
                 android:text="Comic App"
                 android:layout_gravity="center"
+                android:textStyle="bold|italic"
                 android:textSize="40sp"
-                android:textColor="@color/Black1"
+                android:textColor="@color/Black2"
                 android:id="@+id/toolbar_title"
                 />
         </androidx.appcompat.widget.Toolbar>
@@ -41,7 +42,8 @@
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/bottomNavigationView" >
+            android:layout_above="@id/bottomNavigationView"
+            android:layout_below="@id/toolbar">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView2"
@@ -54,7 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/Red"
+            android:background="@color/PINK"
+
             app:menu="@menu/bottom_nav_menu"/>
     </RelativeLayout>
 

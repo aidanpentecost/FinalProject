@@ -7,9 +7,9 @@
         android:title="Comics" />
 
     <item
-        android:id="@+id/Account"
+        android:id="@+id/Manga"
         android:icon="@drawable/baseline_account_box_24"
-        android:title="Account" />
+        android:title="Manga" />
 
 
 </menu>

@@ -4,12 +4,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ListView;
-import org.w3c.dom.Entity;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
- private List<Entity> entityList;
 
 // TODO: add code so activity main can function
      @Override

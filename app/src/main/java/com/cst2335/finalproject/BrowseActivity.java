@@ -8,12 +8,15 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import android.annotation.SuppressLint;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class BrowseActivity extends AppCompatActivity {
 
+    private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,7 @@ public class BrowseActivity extends AppCompatActivity {
         transaction.replace(R.id.fragmentContainerView2, fragmentList, "Comic List");
         transaction.commit();
 
-        DrawerLayout drawer = findViewById(R.id.drawerLayout);
+        drawerLayout = findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.navigationView);
 
         navigationView.setNavigationItemSelectedListener(item -> {
@@ -40,10 +43,20 @@ public class BrowseActivity extends AppCompatActivity {
             } else if (itemId == R.id.drawerHelp) {
                 showSnackbar("Figure out your own issues");
             } else if (itemId == R.id.drawerHome) {
-                drawer.closeDrawer(GravityCompat.START);
+                drawerLayout.closeDrawer(GravityCompat.START);
             }
 
             return true;
+        });
+
+        ImageButton navButton = findViewById(R.id.navButton);
+        navButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
         });
     }
 

@@ -27,7 +27,10 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_exit_24"/>
+                android:id="@+id/navButton"
+                android:contentDescription="navButton"
+                android:src="@drawable/baseline_exit_24"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,6 +47,7 @@
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
             android:layout_above="@id/bottomNavigationView" >
 
             <androidx.fragment.app.FragmentContainerView

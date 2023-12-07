@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<!--TODO: CHANGE ITEM ICONS TO SOMETHING THAT MAKES SENSE-->
+
     <item
         android:id="@+id/Comic"
-        android:icon="@drawable/baseline_self_improvement_24"
-        android:title="Comic" />
+        android:icon="@drawable/baseline_ad_units_24"
+        android:title="Comics" />
 
     <item
-        android:id="@+id/Favourites"
-        android:title="Favourites"
-        android:icon="@drawable/baseline_favorite_24" />
+        android:id="@+id/Account"
+        android:icon="@drawable/baseline_account_box_24"
+        android:title="Account" />
 
-    <item
-        android:id="@+id/Manga"
-        android:icon="@drawable/baseline_skateboarding_24"
-        android:title="Manga" />
 
 </menu>

@@ -58,6 +58,11 @@ public class BrowseActivity extends AppCompatActivity {
                         BrowseActivity.this,
                         SettingsActivity.class);
                 startActivity(settings);
+            }else if(itemId == R.id.navPreferences){
+                Intent preferences = new Intent(
+                        BrowseActivity.this,
+                        PreferencesActivity.class);
+                startActivity(preferences);
             }
 
             return true;

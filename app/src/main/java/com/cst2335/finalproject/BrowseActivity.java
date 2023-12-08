@@ -174,22 +174,20 @@ public class BrowseActivity extends AppCompatActivity {
 
                     List<ComicItem> comicItems = new ArrayList<>();
 
-                    String etag = jsonObject.getString("etag");
-                    String copyright = jsonObject.getString("copyright");
-                    JSONObject dataObject = jsonObject.getJSONObject("data");
-
-                    String attributionText = jsonObject.getString("attributionText");
-                    String attributionHTML = jsonObject.getString("attributionHTML");
-
                     for (int i = 0; i < resultsArray.length(); i++) {
                         JSONObject comicObject = resultsArray.getJSONObject(i);
                         String id = comicObject.getString("id");
                         String name = comicObject.getString("name");
                         String description = comicObject.getString("description");
 
-                        ComicItem comicItem = new ComicItem(id, name, description);
+                        JSONObject thumbnailObject = comicObject.getJSONObject("thumbnail");
+                        String thumbnailPath = thumbnailObject.getString("path");
+                        String thumbnailExtension = thumbnailObject.getString("extension");
+
+                        ComicItem comicItem = new ComicItem(id, name, description, thumbnailPath, thumbnailExtension);
                         comicItems.add(comicItem);
                     }
+
 
                     ComicListAdapter adapter = new ComicListAdapter(BrowseActivity.this, comicItems);
                     ListView comicListView = findViewById(R.id.comicList);

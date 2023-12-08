@@ -12,6 +12,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
@@ -52,6 +53,11 @@ public class BrowseActivity extends AppCompatActivity {
                 showSnackbar("Figure out your own issues");
             } else if (itemId == R.id.drawerHome) {
                 drawerLayout.closeDrawer(GravityCompat.START);
+            } else if(itemId == R.id.drawerSettings){
+                Intent settings = new Intent(
+                        BrowseActivity.this,
+                        SettingsActivity.class);
+                startActivity(settings);
             }
 
             return true;

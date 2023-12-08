@@ -24,6 +24,7 @@ import android.widget.ListView;
 public class BrowseActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,8 @@ public class BrowseActivity extends AppCompatActivity {
         transaction.replace(R.id.fragmentContainerView2, fragmentList, "Comic List");
         transaction.commit();
 
+        Intent fromMain = getIntent();
+        username = fromMain.getStringExtra("username");
 
 
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -62,6 +65,7 @@ public class BrowseActivity extends AppCompatActivity {
                 Intent preferences = new Intent(
                         BrowseActivity.this,
                         PreferencesActivity.class);
+                preferences.putExtra("username", username);
                 startActivity(preferences);
             }
 

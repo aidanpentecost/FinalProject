@@ -3,6 +3,7 @@ package com.cst2335.finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,14 +20,11 @@ public class PreferencesActivity extends AppCompatActivity
         setContentView(R.layout.activity_preferences);
 
         TextView textView = findViewById(R.id.preferences);
+        Intent fromMain = getIntent();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Map<String, ?> allEntries = prefs.getAll();
-        StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            sb.append(entry.getKey()).append(": ").append(entry.getValue().toString()).append("\n");
-        }
-        textView.setText(sb.toString());
+        String username = fromMain.getStringExtra("username");
+
+        textView.setText(username);
 
         BackButtonFragment backButtonFragment = new BackButtonFragment();
 

@@ -14,12 +14,27 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class BrowseActivity extends AppCompatActivity {
 
@@ -39,7 +54,6 @@ public class BrowseActivity extends AppCompatActivity {
 
         Intent fromMain = getIntent();
         username = fromMain.getStringExtra("username");
-
 
         drawerLayout = findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.navigationView);
@@ -61,7 +75,7 @@ public class BrowseActivity extends AppCompatActivity {
                         BrowseActivity.this,
                         SettingsActivity.class);
                 startActivity(settings);
-            }else if(itemId == R.id.navPreferences){
+            } else if(itemId == R.id.navPreferences){
                 Intent preferences = new Intent(
                         BrowseActivity.this,
                         PreferencesActivity.class);
@@ -91,6 +105,10 @@ public class BrowseActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+        new FetchMarvelDataTask().execute("https://gateway.marvel.com/v1/public/characters?ts=1&apikey=2128c69ab35fbae8654e56eb850f2ad1&hash=b2df92dad305b151b2bdccf3c25ae28b");
     }
 
     private void handleBottomNavigationItemClick(MenuItem item) {
@@ -112,5 +130,78 @@ public class BrowseActivity extends AppCompatActivity {
     private void showSnackbar(String message) {
         View parentLayout = findViewById(android.R.id.content);
         Snackbar.make(parentLayout, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private class FetchMarvelDataTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            StringBuilder result = new StringBuilder();
+            HttpsURLConnection urlConnection = null;
+            try {
+                URL url = new URL(urls[0].replace("http://", "https://"));
+                urlConnection = (HttpsURLConnection) url.openConnection();
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader reader = new InputStreamReader(in);
+                int data = reader.read();
+                while (data != -1) {
+                    char current = (char) data;
+                    result.append(current);
+                    data = reader.read();
+                }
+                return result.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "Failed to Fetch Data";
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            Log.d("MarvelData", "JSON Response: " + result);
+
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                int code = jsonObject.getInt("code");
+                String status = jsonObject.getString("status");
+
+                if (code == 200 && "Ok".equals(status)) {
+                    JSONArray resultsArray = jsonObject.getJSONObject("data").getJSONArray("results");
+
+                    List<ComicItem> comicItems = new ArrayList<>();
+
+                    String etag = jsonObject.getString("etag");
+                    String copyright = jsonObject.getString("copyright");
+                    JSONObject dataObject = jsonObject.getJSONObject("data");
+
+                    String attributionText = jsonObject.getString("attributionText");
+                    String attributionHTML = jsonObject.getString("attributionHTML");
+
+                    for (int i = 0; i < resultsArray.length(); i++) {
+                        JSONObject comicObject = resultsArray.getJSONObject(i);
+                        String id = comicObject.getString("id");
+                        String name = comicObject.getString("name");
+                        String description = comicObject.getString("description");
+
+                        ComicItem comicItem = new ComicItem(id, name, description);
+                        comicItems.add(comicItem);
+                    }
+
+                    ComicListAdapter adapter = new ComicListAdapter(BrowseActivity.this, comicItems);
+                    ListView comicListView = findViewById(R.id.comicList);
+                    comicListView.setAdapter(adapter);
+
+                } else {
+                    showSnackbar("Marvel API request failed with code: " + code + ", Status: " + status);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                showSnackbar("Failed to parse Marvel data");
+            }
+        }
     }
 }

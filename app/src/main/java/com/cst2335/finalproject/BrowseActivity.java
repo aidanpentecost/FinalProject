@@ -16,12 +16,14 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -106,9 +108,18 @@ public class BrowseActivity extends AppCompatActivity {
         });
 
 
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        }, 2000);
         new FetchMarvelDataTask().execute("https://gateway.marvel.com/v1/public/characters?ts=1&apikey=2128c69ab35fbae8654e56eb850f2ad1&hash=b2df92dad305b151b2bdccf3c25ae28b");
+
+
     }
 
     private void handleBottomNavigationItemClick(MenuItem item) {
@@ -201,5 +212,10 @@ public class BrowseActivity extends AppCompatActivity {
                 showSnackbar("Failed to parse Marvel data");
             }
         }
+
+
+
     }
+
+
 }

@@ -23,7 +23,13 @@ public class MainActivity extends AppCompatActivity
      private EditText username;
      private EditText password;
 
-// TODO: add code so activity main can function
+     /**
+      *
+      * @param savedInstanceState If the activity is being re-initialized after
+      *     previously being shut down then this Bundle contains the data it most
+      *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+      *
+      */
      @Override
      protected void onCreate(Bundle savedInstanceState){
 
@@ -34,10 +40,12 @@ public class MainActivity extends AppCompatActivity
           password = findViewById(R.id.password);
           LoginButtonFragment login = new LoginButtonFragment();
 
+          //Adds the LoginButtonFragment to the view
           FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
           transaction.add(R.id.loginFragmentContainer, login, "LoginButtonFragment");
           transaction.commit();
      }
+
 
      @Override
      protected void onPause() {
@@ -45,6 +53,7 @@ public class MainActivity extends AppCompatActivity
           SharedPreferences sharedPreferences = getSharedPreferences("LoginInfo", MODE_PRIVATE);
           SharedPreferences.Editor editor = sharedPreferences.edit();
 
+          //Adds the username and password to the SharedPreferences
           editor.putString("username", username.getText().toString());
           editor.putString("password", password.getText().toString());
           editor.apply();
@@ -52,6 +61,7 @@ public class MainActivity extends AppCompatActivity
 
      @Override
      public void onLoginButtonClick() {
+          //Moves to BrowseActivity when LoginButtonFragment is clicked
           Intent login = new Intent(MainActivity.this, BrowseActivity.class);
           Toast.makeText(
                   MainActivity.this,

@@ -42,6 +42,14 @@ public class BrowseActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private String username;
+
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +68,7 @@ public class BrowseActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         NavigationView navigationView = findViewById(R.id.navigationView);
 
+        //Lambda to deal with every NavigationDrawer item
         navigationView.setNavigationItemSelectedListener(item -> {
 
             int itemId = item.getItemId();
@@ -73,11 +82,13 @@ public class BrowseActivity extends AppCompatActivity {
             } else if (itemId == R.id.drawerHome) {
                 drawerLayout.closeDrawer(GravityCompat.START);
             } else if(itemId == R.id.drawerSettings){
+                //Moves to SettingsActivity
                 Intent settings = new Intent(
                         BrowseActivity.this,
                         SettingsActivity.class);
                 startActivity(settings);
             } else if(itemId == R.id.navPreferences){
+                //Moves to PreferencesActivity
                 Intent preferences = new Intent(
                         BrowseActivity.this,
                         PreferencesActivity.class);
@@ -92,6 +103,7 @@ public class BrowseActivity extends AppCompatActivity {
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Opens or closes the drawer on click
                 if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     drawerLayout.openDrawer(GravityCompat.START);
                 }
@@ -107,7 +119,7 @@ public class BrowseActivity extends AppCompatActivity {
             }
         });
 
-
+        //Used to sho user that the data is loading
         ProgressBar progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -118,10 +130,11 @@ public class BrowseActivity extends AppCompatActivity {
             }
         }, 2000);
         new FetchMarvelDataTask().execute("https://gateway.marvel.com/v1/public/characters?ts=1&apikey=2128c69ab35fbae8654e56eb850f2ad1&hash=b2df92dad305b151b2bdccf3c25ae28b");
-
-
     }
 
+    /**
+     * @param item
+     */
     private void handleBottomNavigationItemClick(MenuItem item) {
         int itemId = item.getItemId();
 
@@ -130,6 +143,7 @@ public class BrowseActivity extends AppCompatActivity {
         }
     }
 
+    //Shows alertDialog when clicking Manga button
     private void showMangaAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Go Back To Comics")
@@ -138,12 +152,18 @@ public class BrowseActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * @param message
+     */
     private void showSnackbar(String message) {
+        //makes and fills the text of a snackbar
         View parentLayout = findViewById(android.R.id.content);
         Snackbar.make(parentLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 
+
     private class FetchMarvelDataTask extends AsyncTask<String, Void, String> {
+        //fetches API results in a background thread
         @Override
         protected String doInBackground(String... urls) {
             StringBuilder result = new StringBuilder();
@@ -170,9 +190,13 @@ public class BrowseActivity extends AppCompatActivity {
             }
         }
 
+        /**
+         * @param result The result of the operation computed by {@link #doInBackground}.
+         */
         @Override
         protected void onPostExecute(String result) {
 
+            //Logs JSON response in logcat for debugging
             Log.d("MarvelData", "JSON Response: " + result);
 
             try {
@@ -180,11 +204,14 @@ public class BrowseActivity extends AppCompatActivity {
                 int code = jsonObject.getInt("code");
                 String status = jsonObject.getString("status");
 
+                //Checks that the request is valid code == 200
                 if (code == 200 && "Ok".equals(status)) {
-                    JSONArray resultsArray = jsonObject.getJSONObject("data").getJSONArray("results");
+                    JSONArray resultsArray = jsonObject.getJSONObject("data")
+                            .getJSONArray("results");
 
                     List<ComicItem> comicItems = new ArrayList<>();
 
+                    //fills arrayList with JSONObjects
                     for (int i = 0; i < resultsArray.length(); i++) {
                         JSONObject comicObject = resultsArray.getJSONObject(i);
                         String id = comicObject.getString("id");
@@ -195,27 +222,36 @@ public class BrowseActivity extends AppCompatActivity {
                         String thumbnailPath = thumbnailObject.getString("path");
                         String thumbnailExtension = thumbnailObject.getString("extension");
 
-                        ComicItem comicItem = new ComicItem(id, name, description, thumbnailPath, thumbnailExtension);
+                        //Constructs the ComicItem for each entry
+                        ComicItem comicItem = new ComicItem(
+                                id,
+                                name,
+                                description,
+                                thumbnailPath,
+                                thumbnailExtension);
+
                         comicItems.add(comicItem);
                     }
 
+                    //Adapts the arrayList into the listView
+                    ComicListAdapter adapter = new ComicListAdapter(
+                            BrowseActivity.this,
+                            comicItems);
 
-                    ComicListAdapter adapter = new ComicListAdapter(BrowseActivity.this, comicItems);
                     ListView comicListView = findViewById(R.id.comicList);
                     comicListView.setAdapter(adapter);
 
                 } else {
-                    showSnackbar("Marvel API request failed with code: " + code + ", Status: " + status);
+                    //Generic error message
+                    showSnackbar("Marvel API request failed with code: "
+                            + code +
+                            ", Status: "
+                            + status);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 showSnackbar("Failed to parse Marvel data");
             }
         }
-
-
-
     }
-
-
 }
